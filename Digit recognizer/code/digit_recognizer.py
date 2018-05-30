@@ -70,9 +70,19 @@ model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Train the model, split into 30% validation, and 70% training
-history = model.fit(x_train, y_train, epochs=3, batch_size=128, validation_split=0.30, shuffle=True)
+history = model.fit(x_train, y_train, epochs=1, batch_size=128, validation_split=0.30, shuffle=True)
 
-# print(model.predict(inputs))
+# Make predictions on the test set. We use argmax to map the vector of probabilities to a single category.
+predictions = np.argmax(model.predict(x_test), axis = 1)
+
+# Write the results to a file (floydhub preserves the output folder)
+file = open("output/output.csv","w")
+
+file.write("ImageId,Label\n")
+for (index, prediction) in enumerate(predictions):
+    file.write(str(index + 1) + "," + str(prediction)+"\n")
+
+file.close() 
 
 # summarize history for loss
 plt.plot(history.history['loss'])
@@ -84,8 +94,8 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
 # summarize history for mean error
-plt.plot(history.history['accuracy'])
-plt.plot(history.history['val_accuracy'])
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
 plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
