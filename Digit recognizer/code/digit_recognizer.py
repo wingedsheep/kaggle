@@ -46,7 +46,7 @@ x_test = x_test.reshape((-1, 28, 28, 1))
 
 #Generate the model
 model = Sequential()
-model.add(Conv2D(32, (3, 3), padding='same', input_shape=[1:])) # Input shape = dimensions of the image, layers. The conv2d layer uses a 3x3 kernel and 32 hidden neurons.
+model.add(Conv2D(32, (3, 3), padding='same', input_shape=(28, 28, 1))) # Input shape = dimensions of the image, layers. The conv2d layer uses a 3x3 kernel and 32 hidden neurons.
 model.add(Activation('relu')) # Relu means negative becomes 0
 model.add(Conv2D(32,(3, 3)))
 model.add(Activation('relu'))
@@ -70,7 +70,7 @@ model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Train the model, split into 30% validation, and 70% training
-history = model.fit(x_train, y_train, epochs=25, batch_size=128, validation_split=0.30, shuffle=True)
+history = model.fit(x_train, y_train, epochs=3, batch_size=128, validation_split=0.30, shuffle=True)
 
 # print(model.predict(inputs))
 
@@ -84,10 +84,10 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
 # summarize history for mean error
-plt.plot(history.history['mae'])
-plt.plot(history.history['val_mae'])
-plt.title('model mean error')
-plt.ylabel('mean error')
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
