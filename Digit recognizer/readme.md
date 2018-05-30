@@ -9,8 +9,8 @@ https://www.kaggle.com/c/digit-recognizer
 * Install homebrew, follow instructions on https://brew.sh/
 * Install python and pip using homebrew
 * Install keras and tensorflow
-** https://www.tensorflow.org/install/install_mac
-** https://keras.io/#installation
+	* https://www.tensorflow.org/install/install_mac
+	* https://keras.io/#installation
 * Download the dataset from https://www.kaggle.com/c/digit-recognizer and put it in /data
 
 ### Running on Floydhub
